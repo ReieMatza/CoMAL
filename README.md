@@ -2,6 +2,10 @@
 
 Publication CoMAL, single-microphone acoustic localization.
 
+## Model Architecture
+
+![CoMAL model architecture](images/model_architecture.png)
+
 ## Installation
 
 ```bash
@@ -40,11 +44,26 @@ python -m acoustic_localization_one_mic.fins.rir_pipeline
 ```
 ## Evaluation
 
+Compare With-SuCo and No-SuCo checkpoints across SNR. Edit paths in the example script if needed:
+
+```bash
+python scripts/evaluation_scripts/example_snr_evaluation.py
+python scripts/evaluation_scripts/example_snr_evaluation.py --dataset_path /path/to/rir_dataset
+```
+
+Or call the evaluator directly:
+
 ```bash
 python scripts/evaluation_scripts/evaluate_test_dataset.py /path/to/checkpoint.ckpt --dataset_split valid --batch_size 64
 
-python scripts/evaluation_scripts/plot_angular_error_vs_snr.py /path/to/checkpoint.ckpt --include_random_baseline --dataset_split valid
+python scripts/evaluation_scripts/plot_angular_error_vs_snr.py checkpoints/With-SuCo.ckpt \
+    --checkpoint_path_b checkpoints/No-SuCo.ckpt \
+    --label_a With-SuCo --label_b No-SuCo \
+    --dataset_split test --batch_size 100
 ```
+
+The SNR script writes JSON for overall error, per-room geometry, and pooled RT60 bins, plus paper-style figures.
+
 ## License
 
 See [LICENSE](LICENSE) file for details.
