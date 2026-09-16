@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Acoustic_Localization_one_mic"
+description = "A project for acoustic localization using one microphone."
+readme = "README.md"
+requires-python = ">=3.6"
+dynamic = ["dependencies","version"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "node-and-date"
+write_to = "src/acoustic_localization_one_mic/_version.py"
+
+[project.optional-dependencies]
